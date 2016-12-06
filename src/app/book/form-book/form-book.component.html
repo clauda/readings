@@ -1,0 +1,38 @@
+<h2>The Book is On The Table </h2><hr />
+
+<form (submit)="addBook(book)" #form="ngForm">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" name="title" [(ngModel)]="book.title" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter Book Title">
+    <small id="titleHelp" class="form-text text-muted">you can try <a [routerLink]="['/search']">search it</a> on the web first</small>
+  </div>
+  <div class="form-group">
+    <label for="author">Author</label>
+    <input type="text" name="author" [(ngModel)]="book.author" class="form-control" id="author" placeholder="Author's Name">
+  </div>
+
+  <div 
+      class="form-group"
+      [ngClass]="{
+        'has-danger': pages.invalid && (pages.dirty || pages.touched),
+        'has-success': pages.valid && (pages.dirty || pages.touched)
+      }">
+    <label for="pages">Pages Count</label>
+    <input 
+        id="pages" 
+        type="text" 
+        name="pages"
+        placeholder="Total of Pages"  
+        class="form-control" 
+        [(ngModel)]="book.pages"
+        pagesValidator
+        required
+        #pages="ngModel" />
+    <pre>valid? {{form.form.controls.pages?.valid}}</pre>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a [routerLink]="['/library']" class="btn btn-outline-primary float-xs-right">Library</a>
+</form>      
+
+{{ form.value | json }}

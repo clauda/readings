@@ -1,0 +1,27 @@
+<div *ngIf="!hasError">
+  <h2 class="text-xs-center">{{ book.title }}</h2>
+  <p class="text-xs-center">{{ book.author }}</p>
+  <p class="text-xs-right">{{ book.pages }} pages</p>
+  
+  <p *ngFor="let reading of book.readings">
+    <a 
+      [routerLink]="['/readings', reading.id]" 
+      *ngIf="reading.status == 'Paused'"
+      class="btn btn-info">Resume Reading</a>
+  </p>
+
+  <div *ngIf="!book.hasBeenRead()">
+    <a (click)="startReading(book)" class="btn btn-block btn-outline-success">Start Reading</a>
+  </div>
+
+  <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-primary mt-1">Edit Book</a> 
+  <a (click)="markAsRead(book)" class="btn btn-sm btn-info mt-1">Mark As Read</a>
+  <a (click)="burn(book)" class="btn btn-sm btn-danger mt-1">Burn It</a>
+  <div class="clearfix"></div><br />
+  <a [routerLink]="['/library']" class="mt-2">Library</a><br />
+  <a [routerLink]="['/']">Back to Readings</a>
+</div>
+
+<div *ngIf="hasError"> 
+  <p>Book not found.<br /><a [routerLink]="['/library']">back to library</a></p>
+</div>

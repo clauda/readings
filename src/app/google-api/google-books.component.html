@@ -1,0 +1,33 @@
+
+<h4>Search <a [routerLink]="['/library']" class="float-xs-right btn-sm btn-outline-secondary">Back to my Bookshelf</a> </h4>
+<hr />
+
+<form class="mb-2" (submit)="search(query.value)">
+  <div class="input-group">
+    <input type="text" class="form-control" #query placeholder="Search for...">
+    <span class="input-group-btn">
+      <button class="btn btn-success" type="button" (click)="search(query)">Go!</button>
+    </span>
+  </div>
+</form>
+
+<ul class="list-group">
+  <li *ngFor="let book of books" class="list-group-item">
+    <!--<img 
+      src="{{ book.volumeInfo?.imageLinks?.smallThumbnail }}" 
+      alt="{{ book.volumeInfo.title }}" 
+      class="rounded img-fluid float-xs-right" /> -->
+
+    <a (click)=addToLibrary(book) class="btn btn-outline-primary float-xs-right">Add</a>
+    <h5 class="list-group-item-heading">{{ book?.volumeInfo?.title }}</h5>
+    <p *ngIf="book.volumeInfo?.authors">by {{ book.volumeInfo?.authors[0] }}</p>
+    <p class="text-xs text-muted" [innerHtml]="book.searchInfo?.textSnippet"></p>
+    <span>({{ book.volumeInfo?.pageCount }} pages)</span>
+  </li>
+</ul>
+
+<div *ngIf="loading" class="text-xs-center">
+  <img src="/assets/images/loading.gif" alt="loading" width="36px">
+</div>
+<p *ngIf="error_message" class="text-danger text-xs-center"> {{ error_message }}</p>
+

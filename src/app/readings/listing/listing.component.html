@@ -1,0 +1,47 @@
+<h4>Readings 
+  <small class="float-xs-right">
+    <a [routerLink]="['/library']">Go to Library</a>
+  </small>
+</h4>
+<hr />
+
+<div class="list-group">
+  <a [routerLink]="['/readings', reading.id]" 
+    class="list-group-item list-group-item-action"
+    *ngFor="let reading of readings">
+    <span class="tag tag-pill tag-primary float-xs-right" 
+      [ngClass]="{
+        'tag-success': reading.status == 'Completed',
+        'tag-info': reading.status == 'Paused',
+        'tag-warning': reading.status == 'Abandoned'
+      }">{{ reading.status }}</span>
+
+    <h5 class="list-group-item-heading">{{ reading.book?.title }}</h5><br />
+    
+    <div class="list-group-item-text mb-1">
+
+      <span class="text-xs float-xs-right text-mute" *ngIf="reading.status != 'Completed'">{{ reading.progress }} %</span>
+
+      <p *ngIf="reading.finished_at">Finished at {{ reading.finished_at | date:'dd/MM/yyyy' }}</p>
+      
+      <progress 
+        *ngIf="reading.status != 'Completed'"
+        class="progress progress-animated"
+        [ngClass]="{ 
+          'progress-success' : reading.status == 'Completed',
+          'progress-info' : reading.status == 'Paused',
+          'progress-warning' : reading.status == 'Abandoned'
+        }" 
+        value="{{ reading.progress }}" max="100"></progress>
+
+    </div>
+    
+  </a>
+</div>
+
+<div *ngIf="readings.length === 0">
+  <p>
+    No readings yet. Started a new one.
+    <a [routerLink]="['/library']">Go to Library</a>
+  </p>
+</div>

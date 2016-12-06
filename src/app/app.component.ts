@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Readings';
+  apiRoot : string = 'http://localhost:4000';
+
+  constructor(){ }
 }

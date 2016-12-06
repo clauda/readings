@@ -1,3 +1,28 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar navbar-dark bg-primary">
+  <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+  <div class="collapse navbar-toggleable-sm" id="navbarResponsive">
+    <ul class="nav navbar-nav float-xs-right">
+      <li class="nav-item">
+        <a [routerLink]="['/library']" class="nav-link">Library</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/search']" class="nav-link">Search</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/readings']" class="nav-link">Readings</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/settings']" class="nav-link">Settings</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="clearfix"></div>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

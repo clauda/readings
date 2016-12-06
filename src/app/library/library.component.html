@@ -1,0 +1,28 @@
+<h4>Library 
+  <a [routerLink]="['/books/new']" class="float-xs-right btn btn-sm btn-outline-warning">Add Book</a></h4>
+<hr />
+
+<div class="list-group">
+  <div *ngFor="let book of library" class="list-group-item">
+    <a [routerLink]="['/books/details', book.id]" class="list-group-item-action">
+
+      <span class="tag tag-pill tag-primary float-xs-right" *ngIf="book.read">Done</span>
+
+      <h5 class="list-group-item-heading">{{ book.title }}</h5>
+      <p class="list-group-item-text">by {{ book.author}}</p>
+
+      <div *ngIf="book.hasBeenRead()">
+        <p class="smaller-text">{{ book.current_reading.status }} read {{ book.current_reading.progress }}%</p>
+        <progress 
+          class="mt-1 progress progress-animated"
+          [ngClass]="{ 
+            'progress-success' : book.current_reading.status == 'Completed',
+            'progress-info' : book.current_reading.status == 'Paused',
+            'progress-warning' : book.current_reading.status == 'Abandoned' 
+          }" 
+          value="{{ book.current_reading.progress }}" max="100"></progress>
+      </div>
+    </a>
+  </div>
+</div>
+

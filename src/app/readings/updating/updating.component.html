@@ -1,0 +1,64 @@
+<h4 class="text-xs-center">{{ reading.book.title }} </h4>
+<hr />
+<p class="tag tag-pill tag-primary float-xs-right" 
+  [ngClass]="{
+    'tag-success': reading.status == 'Completed',
+    'tag-info': reading.status == 'Paused',
+    'tag-warning': reading.status == 'Abandoned'
+  }">{{ reading.status }}</p>
+<br />
+<div class="clearfix"></div>
+<p>
+  You started this book at {{ reading.started_at | date: 'dd/MM/yyyy' }} 
+  ({{ reading.started_at | toNow }})<br />
+  <span *ngIf="reading.finished_at">and finish at {{ reading.finished_at }}</span>
+</p>
+  <progress 
+      class="progress progress-animated"
+      [ngClass]="{ 
+        'progress-success' : reading.status == 'Completed',
+        'progress-info' : reading.status == 'Paused',
+        'progress-warning' : reading.status == 'Abandoned' 
+      }" 
+      value="{{ reading.progress }}" max="100"></progress>
+
+{{ reading.progress }}% read of {{ reading.pages }} pages.
+
+<div *ngIf="reading.active"> 
+  <div class="form-group mt-2">
+    <label for="last_page">Last Page Read</label>
+    <input 
+      type="number" 
+      min="{{ reading.last_page }}"
+      max="{{ reading.pages }}" 
+      class="form-control" 
+      name="current_page" [(ngModel)]="reading.current_page" 
+      placeholder="Last Page Read" />
+  </div>
+
+  <div class="clearfix"></div>
+
+  <a class="btn btn-block btn-lg btn-outline-primary mt-1" (click)="update(reading)">Update Progress</a>
+  <a class="btn btn-block btn-outline-success" (click)="finish(reading)">Finish It</a>
+
+  <div class="row mt-2">
+    <div class="col-xs-6">
+      <a class="btn btn-block btn-sm btn-outline-info" (click)="deactiveTo(reading, 'Paused')">Pause</a>
+    </div>
+    <div class="col-xs-6">
+      <a class="btn btn-block btn-sm btn-outline-warning" (click)="deactiveTo(reading, 'Abandoned')">Abandone</a>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!reading.active && reading.status == 'Paused'" class="row mt-2">
+  <div class="col-sm-12">
+    <a class="btn btn-info" (click)="resume(reading)">Resume</a>
+  </div>
+</div>
+<br />
+<br />
+<p>
+  <a [routerLink]="['/']">Readings</a><br />
+  <a [routerLink]="['/library']">Library</a><br />
+</p>

@@ -1,0 +1,34 @@
+<h4>
+  Settings <small class="float-xs-right"><a [routerLink]="['/readings']">Go to Readings</a></small>
+</h4><hr />
+
+<form (submit)="place(user)">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" [(ngModel)]="user.email" class="form-control" id="email" placeholder="Enter email">
+  </div>
+
+  <div class="form-group">
+    <label for="mei">MEI</label>
+    <input type="text" name="mei" [(ngModel)]="user.mei" class="form-control" id="mei" disabled />
+  </div>
+
+  <h5>Goals</h5><hr />
+  <div class="form-group">
+    <label>Pages per Day</label>
+    <input type="text" name="goal.pages_for_day" [(ngModel)]="user.goal.pages_per_day" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label>Books per Week</label>
+    <input type="text" name="goal.books_per_week" [(ngModel)]="user.goal.books_per_week" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="mei">Books per Year</label>
+    <input type="text" name="goal.books_per_year" [(ngModel)]="user.goal.books_per_year" class="form-control" />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
